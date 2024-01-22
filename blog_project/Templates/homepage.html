@@ -1,0 +1,83 @@
+{% extends 'base.html' %} 
+
+{% block title %}
+  <title>Home Page</title>
+{% endblock title %}
+
+
+{% block content %}
+
+<div class = 'd-flex mt-5'>
+  <div class ='col-2 ps-3 me-1'>
+
+    {% if status == True %}
+      <h3 class = "text-primary text-center">{{total}} results found</h3>
+      {% endif %}
+
+    <div class = ' bg-secondary px-3 me-1'>
+  
+      <h3 class = 'text-white'>All Categories</h3>
+      {% for category in categories %}
+      <div class="form-check">
+        <input class="form-check-input" 
+        type="radio" 
+        name="category" 
+        id="{{category.name}}">
+  
+        <label class="form-check-label" for="{{category.name}}">
+          <a class = "text-decoration-none  text-white" href="{% url 'category_wise_post' category.slug %}"> {{category.name}}</a>
+        </label>
+        
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class = "col-4 d-flex align-items-center">
+    <div>
+      <h3 class = 'text-success text-center'>Welcome to Blog</h3>
+      <b>This is a simple web-application which support CRUD(Create, Retrive, Update, Delete) operations.
+        In This application you can see post without login. But if you want to post, you have to create an account first. After creating an account you are able to post.  After posting something you can delete that/these. You can also change your profile data. Besides you can chenge your password with your old password.
+      </b>
+   </div>
+
+    </div>
+  <div class = 'col-5'>
+    {% load static %}
+
+    <img class = 'w-100' src="{% static 'profile2.jpg'%}" alt="">
+  </div>
+</div>
+
+
+
+<div class="d-flex flex-wrap px-5 justify-content-center">
+      
+   
+  {% for post in postData %}
+  <div class="col-4">
+    <div class="card m-2">
+      <h5 class="card-title text-center text-light p-3 bg-dark">{{post.title}}</h5>
+      {% if post.image %}
+      <img src="{{post.image.url}}" class = 'w-75 m-auto' alt="">
+      {% endif %}
+      <div class="card-body">
+        
+        <p class="card-text">{{post.content | truncatewords:30}}</p>
+          <a href="{% url 'post_details' post.id %}" class = 'text-decoration-none text-dark'><small><b>See More</b></small></a>
+        <p>Author : {{post.author.first_name}} {{post.author.last_name}}</p>
+        <p>
+          Category : {% for cat in post.category.all %} 
+          <button class="btn btn-primary btn-sm m-2" disabled >{{cat.name}} </button>
+          {% endfor %}
+        </p>
+
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+
+
+{% endblock content %}
+

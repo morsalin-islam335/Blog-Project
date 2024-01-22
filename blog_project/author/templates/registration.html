@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}
+    <title>Add Author Page</title>
+{% endblock title %}
+{% block content %}
+
+<h2 class = 'text-white bg-secondary text-center p-3'>Sign Up</h2>
+    <form method = "POST" style = 'width: 50%; margin:auto;'>
+        {% csrf_token %}
+        {% load crispy_forms_tags %}
+        {{form | crispy}}
+        <input  class = 'btn btn-success' type="submit" value="submit">
+    </form>
+{% endblock  %}

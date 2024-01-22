@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+<title>login  page</title>
+
+{% endblock title %}
+
+
+{% block content %}
+
+<h3 class = 'text-center text-success mt-5'>{{data}}</h3>
+
+{% load crispy_forms_tags %}
+<form method = "POST" style = 'width: 50%; margin:auto;'>
+    {% csrf_token %}
+
+    {{form | crispy}}
+    
+    <br>
+
+    <button class = "bg-success text-white ms-5 p-2" type="submit">Login</button>
+
+
+</form>
+
+{% endblock content %}
